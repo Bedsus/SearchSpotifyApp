@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- basic colors -->
+    <color name="colorPrimary">#00c853</color>
+    <color name="colorPrimaryDark">#009624</color>
+    <color name="colorActive">#ffca28</color>
+    <color name="colorBackground">#FFFFFF</color>
+    <color name="colorTextPrimary">#212121</color>
+    <color name="colorError">#E21939</color>
+
+    <!-- complementary colors -->
+    <color name="colorSuccess">#10C057</color>
+    <color name="colorWarning">#FFA726</color>
+    <color name="colorInfo">#2D74DA</color>
+    <color name="infoLight">#4CB4FF</color>
+    <color name="textLight">#808080</color>
+    <color name="textDisabled">#C2C2C2</color>
+    <color name="textWhite">#FFFFFF</color>
+    <color name="errorLight">#FDEDEE</color>
+    <color name="border">#E6E6E6</color> <!-- border, hover, focus, active -->
+    <color name="disabled">#ECEFF1</color>
+    <color name="borderSelect">#C2C2C2</color>
+    <color name="borderButton">#707070</color>
+    <color name="focusPrimary">#FCE8EB</color>
+    <color name="icon">#D1D1D1</color>
+    <color name="iconDark">#333333</color>
+    <color name="darkLight">#F0F0F0</color>
+    <color name="colorShimmer">#dddddd</color>
+    <color name="rippleColor">#F0F0F0</color>
+    <color name="colorPrimaryCardBackground">#0F000000</color>
+    <color name="colorDiscount">#FF296A</color>
+    <color name="fail">#90A4AE</color>
+</resources>
