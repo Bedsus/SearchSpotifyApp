@@ -4,6 +4,9 @@ import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import ru.bedsus.core.di.coreModule
+import ru.bedsus.spotifyapp.di.appModule
+import timber.log.Timber
+import timber.log.Timber.DebugTree
 
 class App : Application() {
 
@@ -11,7 +14,12 @@ class App : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@App)
-            modules(coreModule)
+            modules(
+                coreModule, appModule
+            )
+        }
+        if (BuildConfig.DEBUG) {
+            Timber.plant(DebugTree())
         }
     }
 }
