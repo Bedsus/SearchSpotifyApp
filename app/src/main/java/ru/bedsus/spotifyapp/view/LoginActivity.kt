@@ -57,6 +57,7 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
 
     private fun openMainActivity() {
         startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 
     companion object {
