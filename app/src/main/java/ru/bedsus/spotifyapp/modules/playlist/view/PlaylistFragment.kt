@@ -47,10 +47,10 @@ class PlaylistFragment : Fragment(R.layout.playlist_fragment) {
     }
 
     private fun showLoading() {
-
+        vLoading.show()
     }
 
     private fun hideLoading() {
-
+        vLoading.hide()
     }
 }

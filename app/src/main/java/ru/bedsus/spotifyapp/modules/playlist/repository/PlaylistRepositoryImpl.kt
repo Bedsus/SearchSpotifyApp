@@ -5,7 +5,6 @@ import ru.bedsus.core.repository.ResultRequest
 import ru.bedsus.spotifyapp.modules.playlist.endpoints.PlaylistApiService
 import ru.bedsus.spotifyapp.modules.playlist.mappers.PlaylistApiToPlaylistMapper
 import ru.bedsus.spotifyapp.modules.playlist.models.PlaylistItem
-import timber.log.Timber
 
 class PlaylistRepositoryImpl(
     private val mapper: PlaylistApiToPlaylistMapper,
