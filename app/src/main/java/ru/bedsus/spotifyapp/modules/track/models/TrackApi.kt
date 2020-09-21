@@ -1,4 +1,4 @@
-package ru.bedsus.spotifyapp.modules.track
+package ru.bedsus.spotifyapp.modules.track.models
 
 import com.google.gson.annotations.SerializedName
 import ru.bedsus.spotifyapp.modules.album.models.AlbumApi

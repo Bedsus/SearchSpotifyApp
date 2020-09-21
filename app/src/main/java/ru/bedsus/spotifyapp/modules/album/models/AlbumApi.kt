@@ -2,7 +2,7 @@ package ru.bedsus.spotifyapp.modules.album.models
 
 import com.google.gson.annotations.SerializedName
 import ru.bedsus.spotifyapp.modules.image.models.ImageApi
-import ru.bedsus.spotifyapp.modules.track.TrackApi
+import ru.bedsus.spotifyapp.modules.track.models.TrackApi
 import ru.bedsus.spotifyapp.modules.artist.models.ArtistApi
 
 class AlbumApi(

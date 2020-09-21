@@ -2,7 +2,6 @@ package ru.bedsus.spotifyapp.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import com.spotify.sdk.android.authentication.AuthenticationClient
 import com.spotify.sdk.android.authentication.AuthenticationRequest
@@ -11,7 +10,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 import ru.bedsus.core.token.TokenManager
 import ru.bedsus.spotifyapp.R
-import ru.bedsus.spotifyapp.modules.playlist.view.PlaylistFragment
+import ru.bedsus.spotifyapp.modules.search.view.SearchFragment
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
@@ -40,7 +39,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             when (response.type) {
                 AuthenticationResponse.Type.TOKEN -> {
                     saveToken(response)
-                    openPlaylist()
+                    openSearch()
                     vLoading.hide()
                 }
                 AuthenticationResponse.Type.ERROR -> {
@@ -53,9 +52,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         }
     }
 
-    private fun openPlaylist() {
+    private fun openSearch() {
         supportFragmentManager.beginTransaction()
-                .replace(R.id.vContainerFrag, PlaylistFragment())
+                .replace(R.id.vContainerFrag, SearchFragment())
                 .commit()
     }
 

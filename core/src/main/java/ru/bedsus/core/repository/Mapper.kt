@@ -4,12 +4,11 @@ interface Mapper<I, O> {
     fun map(input: I): O
 }
 
-interface NullableInputListMapper<I, O> : Mapper<List<I>?, List<O>>
-
-class NullableInputListMapperImpl<I, O>(
-        private val mapper: Mapper<I, O>
-) : NullableInputListMapper<I, O> {
-    override fun map(input: List<I>?): List<O> {
-        return input?.map { mapper.map(it) }.orEmpty()
-    }
+fun <I, O> Mapper<I, O>.listMap(
+    input: List<I>?,
+    predicate: (I) -> Boolean = { true }
+): List<O> {
+    return input?.filter(predicate)
+        ?.map { map(it) }
+        .orEmpty()
 }
