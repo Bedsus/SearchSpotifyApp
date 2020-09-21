@@ -12,9 +12,9 @@ object SearchResultApiToSearchResultMapper : Mapper<SearchResultApi, SearchResul
     override fun map(input: SearchResultApi): SearchResult {
         input.apply {
             return SearchResult(
-                artists = ArtistApiToArtistMapper.listMap(artists) { it.id != null },
-                albums = AlbumApiToSimpleAlbumMapper.listMap(albums) { it.id != null },
-                tracks = TrackApiToSimpleTrackMapper.listMap(tracks) { it.id != null }
+                artists = ArtistApiToArtistMapper.listMap(artists?.items) { it.id != null },
+                albums = AlbumApiToSimpleAlbumMapper.listMap(albums?.items) { it.id != null },
+                tracks = TrackApiToSimpleTrackMapper.listMap(tracks?.items) { it.id != null }
             )
         }
     }

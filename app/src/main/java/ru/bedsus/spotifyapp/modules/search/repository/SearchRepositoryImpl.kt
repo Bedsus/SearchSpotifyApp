@@ -16,7 +16,7 @@ class SearchRepositoryImpl(
         offset: Int?
     ): ResultRequest<SearchResult> {
         return try {
-            val searchApi = service.search(query, type, limit, offset)
+            val searchApi = service.search(query, type, 2, 0)
             ResultRequest.Success(SearchResultApiToSearchResultMapper.map(searchApi))
         } catch (ex: Exception) {
             ResultRequest.Error(ex)

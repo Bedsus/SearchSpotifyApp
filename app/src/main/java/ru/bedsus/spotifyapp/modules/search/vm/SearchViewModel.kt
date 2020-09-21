@@ -28,7 +28,9 @@ class SearchViewModel(
             toYear = toYear.value ?: "",
             genre = genre.value ?: "",
         )
-        val typeString = (type.value ?: SearchType.values().toSet()).joinToString(",")
+        val types = if (type.value != null && type.value!!.isNotEmpty())
+            type.value!! else SearchType.values().toSet()
+        val typeString = types.joinToString(",") { it.value }
         viewModelScope.launch {
             _searchLiveData.value = ResultRequest.Loading
             _searchLiveData.value = repository.search(resultQuery, typeString)

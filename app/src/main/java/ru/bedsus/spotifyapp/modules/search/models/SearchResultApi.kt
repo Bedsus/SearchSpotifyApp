@@ -6,7 +6,19 @@ import ru.bedsus.spotifyapp.modules.artist.models.ArtistApi
 import ru.bedsus.spotifyapp.modules.track.models.TrackApi
 
 class SearchResultApi (
-    @SerializedName("artists") val artists: List<ArtistApi>,
-    @SerializedName("albums") val albums: List<AlbumApi>,
-    @SerializedName("tracks") val tracks: List<TrackApi>
-)
+        @SerializedName("albums") val albums: AlbumItemsApi?,
+        @SerializedName("artists") val artists: ArtistItemsApi?,
+        @SerializedName("tracks") val tracks: TrackItemsApi?
+) {
+    class AlbumItemsApi(
+        @SerializedName("items") val items: List<AlbumApi>,
+    )
+
+    class ArtistItemsApi(
+        @SerializedName("items") val items: List<ArtistApi>,
+    )
+
+    class TrackItemsApi(
+        @SerializedName("items") val items: List<TrackApi>,
+    )
+}

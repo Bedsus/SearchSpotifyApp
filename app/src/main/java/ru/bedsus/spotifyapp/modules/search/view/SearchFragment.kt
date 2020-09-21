@@ -35,14 +35,17 @@ class SearchFragment : Fragment() {
                     Timber.e(it,"Ошибка считывания")
                 })
         )
-        viewModel.searchLiveData.observe(viewLifecycleOwner) {
-            view.vResultText.text = when (it) {
+        viewModel.searchLiveData.observe(viewLifecycleOwner) { result ->
+            view.vResultText.text = when (result) {
                 is ResultRequest.Success -> """
-                    tracks: ${it.data.tracks.size}
-                    albums: ${it.data.albums.size}
-                    artists: ${it.data.artists.size}
+tracks: 
+${result.data.tracks.joinToString("\n") { "${it.artists[0].name} - ${it.name}" }}
+albums: 
+${result.data.albums.joinToString("\n") { "${it.artists[0].name} - ${it.name}" }}
+artists: 
+${result.data.artists.joinToString("\n") { it.name }}
                 """.trimIndent()
-                is ResultRequest.Error -> it.exception.localizedMessage
+                is ResultRequest.Error -> result.exception.localizedMessage
                 ResultRequest.Loading -> "loading..."
             }
         }
