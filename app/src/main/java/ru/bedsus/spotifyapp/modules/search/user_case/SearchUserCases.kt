@@ -1,5 +1,12 @@
 package ru.bedsus.spotifyapp.modules.search.user_case
 
+import ru.bedsus.core.repository.listMap
+import ru.bedsus.spotifyapp.modules.search.models.SearchResult
+import ru.bedsus.spotifyapp.modules.search.vm.mappers.AlbumToSearchItemMapper
+import ru.bedsus.spotifyapp.modules.search.vm.mappers.ArtistToSearchItemMapper
+import ru.bedsus.spotifyapp.modules.search.vm.mappers.TrackToSearchItemMapper
+import ru.bedsus.spotifyapp.modules.search.vm.models.SearchItem
+
 object SearchUserCases {
 
     fun generateSearchQuery(
@@ -18,5 +25,13 @@ object SearchUserCases {
             resultQuery += " genre:$genre"
         }
         return resultQuery
+    }
+
+    fun createSearchItemList(result: SearchResult): List<SearchItem> {
+        val searchItems = mutableListOf<SearchItem>()
+        searchItems.addAll(ArtistToSearchItemMapper.listMap(result.artists))
+        searchItems.addAll(TrackToSearchItemMapper.listMap(result.tracks))
+        searchItems.addAll(AlbumToSearchItemMapper.listMap(result.albums))
+        return searchItems
     }
 }

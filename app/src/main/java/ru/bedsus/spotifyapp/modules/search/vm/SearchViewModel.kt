@@ -7,6 +7,7 @@ import ru.bedsus.spotifyapp.modules.search.models.SearchResult
 import ru.bedsus.spotifyapp.modules.search.models.SearchType
 import ru.bedsus.spotifyapp.modules.search.repository.SearchRepository
 import ru.bedsus.spotifyapp.modules.search.user_case.SearchUserCases
+import ru.bedsus.spotifyapp.modules.search.vm.models.SearchItem
 
 class SearchViewModel(
     private val repository: SearchRepository
@@ -17,9 +18,9 @@ class SearchViewModel(
     val genre = MutableLiveData<String>(null)
     val type = MutableLiveData<Set<SearchType>>(setOf())
 
-    val searchLiveData: LiveData<ResultRequest<SearchResult>>
+    val searchLiveData: LiveData<ResultRequest<List<SearchItem>>>
         get() = _searchLiveData
-    private val _searchLiveData = MutableLiveData<ResultRequest<SearchResult>>()
+    private val _searchLiveData = MutableLiveData<ResultRequest<List<SearchItem>>>()
 
     fun search(query: CharSequence) {
         val resultQuery = SearchUserCases.generateSearchQuery(
@@ -33,7 +34,14 @@ class SearchViewModel(
         val typeString = types.joinToString(",") { it.value }
         viewModelScope.launch {
             _searchLiveData.value = ResultRequest.Loading
-            _searchLiveData.value = repository.search(resultQuery, typeString)
+            when (val result = repository.search(resultQuery, typeString)) {
+                is ResultRequest.Success -> {
+                    val searchItems = SearchUserCases.createSearchItemList(result.data)
+                    _searchLiveData.value = ResultRequest.Success(searchItems)
+                }
+                is ResultRequest.Error ->
+                    _searchLiveData.value = ResultRequest.Error(result.exception)
+            }
         }
     }
 }
