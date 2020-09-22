@@ -19,11 +19,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        vLoading.show()
-        authorization()
+        if (tokenManager.isToken().not()) {
+            authorization()
+        }
     }
 
     private fun authorization() {
+        vLoading.show()
         val builder = AuthenticationRequest.Builder(
                 CLIENT_ID, AuthenticationResponse.Type.TOKEN, REDIRECT_URI
         )
@@ -40,7 +42,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 AuthenticationResponse.Type.TOKEN -> {
                     saveToken(response)
                     openSearch()
-                    vLoading.hide()
                 }
                 AuthenticationResponse.Type.ERROR -> {
                     Timber.d(response.error)
@@ -49,6 +50,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                     Timber.d(response.error)
                 }
             }
+            vLoading.hide()
         }
     }
 

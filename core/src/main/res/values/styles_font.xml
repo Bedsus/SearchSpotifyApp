@@ -2,12 +2,12 @@
 <resources>
 
     <!-- Стиль шрифта -->
-    <style name="TextRegular">
+    <style name="TextRegular" parent="Widget.AppCompat.TextView">
         <item name="android:fontFamily">@font/font_regular</item>
         <item name="android:textColor">?android:attr/textColor</item>
     </style>
 
-    <style name="TextMedium">
+    <style name="TextMedium" parent="Widget.AppCompat.TextView">
         <item name="android:fontFamily">@font/font_medium</item>
         <item name="android:textColor">?android:attr/textColor</item>
     </style>

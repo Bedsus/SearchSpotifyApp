@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.artist_list_item.view.*
 import kotlinx.android.synthetic.main.track_list_item.view.*
 import ru.bedsus.spotifyapp.R
 import ru.bedsus.spotifyapp.modules.search.models.SearchType
-import ru.bedsus.spotifyapp.modules.search.vm.models.SearchItem
+import ru.bedsus.spotifyapp.modules.search.models.SearchItem
 
 class SearchResultAdapter : ListAdapter<SearchItem, SearchResultAdapter.ViewHolder>(SearchItemDiffUtil) {
 
@@ -35,11 +35,11 @@ class SearchResultAdapter : ListAdapter<SearchItem, SearchResultAdapter.ViewHold
         val item = getItem(position)
         holder.firstText?.text = item.firstText
         holder.secondText?.text = item.secondText
-        holder.imageView?.let {
+        if (holder.imageView != null && item.image.isNotEmpty()) {
             Picasso.get()
                     .load(item.image)
                     .fit()
-                    .into(it)
+                    .into(holder.imageView)
         }
     }
 

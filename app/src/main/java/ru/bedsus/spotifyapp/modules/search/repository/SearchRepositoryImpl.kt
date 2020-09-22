@@ -2,7 +2,7 @@ package ru.bedsus.spotifyapp.modules.search.repository
 
 import ru.bedsus.core.repository.ResultRequest
 import ru.bedsus.spotifyapp.modules.search.endpoints.SearchApiService
-import ru.bedsus.spotifyapp.modules.search.mapper.SearchResultApiToSearchResultMapper
+import ru.bedsus.spotifyapp.modules.search.mappers.SearchResultApiToSearchResultMapper
 import ru.bedsus.spotifyapp.modules.search.models.SearchResult
 
 class SearchRepositoryImpl(

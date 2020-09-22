@@ -36,12 +36,12 @@ class SearchFragment : Fragment() {
         disposablies.add(
             view.vSearchEditText.textChanges()
                 .debounce(INPUT_PROCESSING_INTERVAL, TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ viewModel.search(it) }, {
                     Timber.e(it,"Ошибка считывания")
                 })
         )
         viewModel.searchLiveData.observe(viewLifecycleOwner) { result ->
+            view.vLoading.hide()
             when (result) {
                 is ResultRequest.Success -> {
                     adapter?.submitList(result.data)
@@ -49,6 +49,7 @@ class SearchFragment : Fragment() {
                 is ResultRequest.Error -> {
                     Timber.e(result.exception)
                 }
+                ResultRequest.Loading -> view.vLoading.show()
             }
         }
         return view
@@ -60,6 +61,6 @@ class SearchFragment : Fragment() {
     }
 
     companion object {
-        const val INPUT_PROCESSING_INTERVAL = 200L
+        const val INPUT_PROCESSING_INTERVAL = 150L
     }
 }

@@ -1,13 +1,15 @@
 package ru.bedsus.spotifyapp.modules.search.vm
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.bedsus.core.repository.ResultRequest
-import ru.bedsus.spotifyapp.modules.search.models.SearchResult
+import ru.bedsus.spotifyapp.modules.search.models.SearchItem
 import ru.bedsus.spotifyapp.modules.search.models.SearchType
 import ru.bedsus.spotifyapp.modules.search.repository.SearchRepository
 import ru.bedsus.spotifyapp.modules.search.user_case.SearchUserCases
-import ru.bedsus.spotifyapp.modules.search.vm.models.SearchItem
 
 class SearchViewModel(
     private val repository: SearchRepository
@@ -23,6 +25,9 @@ class SearchViewModel(
     private val _searchLiveData = MutableLiveData<ResultRequest<List<SearchItem>>>()
 
     fun search(query: CharSequence) {
+        if (query.isEmpty()) {
+            _searchLiveData.value = ResultRequest.Success(listOf())
+        }
         val resultQuery = SearchUserCases.generateSearchQuery(
             query = query.toString().trim(),
             fromYear = fromYear.value ?: "",

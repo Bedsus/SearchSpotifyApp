@@ -23,7 +23,7 @@
 
         <TextView
             android:id="@+id/vTrackName"
-            style="@style/Text14Medium"
+            android:theme="@style/Text14Medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="1"
@@ -32,7 +32,7 @@
 
         <TextView
             android:id="@+id/vArtistNameByTrack"
-            style="@style/Text12Regular"
+            android:theme="@style/Text12Regular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="1"

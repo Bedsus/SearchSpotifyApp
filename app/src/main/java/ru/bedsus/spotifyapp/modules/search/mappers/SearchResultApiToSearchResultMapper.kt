@@ -1,4 +1,4 @@
-package ru.bedsus.spotifyapp.modules.search.mapper
+package ru.bedsus.spotifyapp.modules.search.mappers
 
 import ru.bedsus.core.repository.Mapper
 import ru.bedsus.core.repository.listMap

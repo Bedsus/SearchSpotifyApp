@@ -1,6 +1,4 @@
-package ru.bedsus.spotifyapp.modules.search.vm.models
-
-import ru.bedsus.spotifyapp.modules.search.models.SearchType
+package ru.bedsus.spotifyapp.modules.search.models
 
 data class SearchItem(
         val id: String,

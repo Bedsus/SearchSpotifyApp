@@ -1,11 +1,11 @@
 package ru.bedsus.spotifyapp.modules.search.user_case
 
 import ru.bedsus.core.repository.listMap
+import ru.bedsus.spotifyapp.modules.search.mappers.AlbumToSearchItemMapper
+import ru.bedsus.spotifyapp.modules.search.mappers.ArtistToSearchItemMapper
+import ru.bedsus.spotifyapp.modules.search.mappers.TrackToSearchItemMapper
+import ru.bedsus.spotifyapp.modules.search.models.SearchItem
 import ru.bedsus.spotifyapp.modules.search.models.SearchResult
-import ru.bedsus.spotifyapp.modules.search.vm.mappers.AlbumToSearchItemMapper
-import ru.bedsus.spotifyapp.modules.search.vm.mappers.ArtistToSearchItemMapper
-import ru.bedsus.spotifyapp.modules.search.vm.mappers.TrackToSearchItemMapper
-import ru.bedsus.spotifyapp.modules.search.vm.models.SearchItem
 
 object SearchUserCases {
 
