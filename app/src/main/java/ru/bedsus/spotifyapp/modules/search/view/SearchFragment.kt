@@ -1,18 +1,15 @@
 package ru.bedsus.spotifyapp.modules.search.view
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jakewharton.rxbinding3.widget.textChanges
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.search_fragment.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.bedsus.core.repository.ResultRequest
-import ru.bedsus.spotifyapp.R
+import ru.bedsus.core.viewbinding.viewBinding
+import ru.bedsus.spotifyapp.databinding.SearchFragmentBinding
 import ru.bedsus.spotifyapp.modules.search.view.adapter.SearchResultAdapter
 import ru.bedsus.spotifyapp.modules.search.vm.SearchViewModel
 import timber.log.Timber
@@ -24,24 +21,23 @@ class SearchFragment : Fragment() {
     private val viewModel: SearchViewModel by viewModel()
     private var adapter: SearchResultAdapter? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.search_fragment, container, false)
+    private val binding by viewBinding(SearchFragmentBinding::bind)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         adapter = SearchResultAdapter()
-        view.vSearchItemList.layoutManager = LinearLayoutManager(requireContext())
-        view.vSearchItemList.adapter = adapter
-        disposablies.add(
-            view.vSearchEditText.textChanges()
-                .debounce(INPUT_PROCESSING_INTERVAL, TimeUnit.MILLISECONDS)
-                .subscribe({ viewModel.search(it) }, {
-                    Timber.e(it,"Ошибка считывания")
-                })
-        )
+        with(binding.vSearchItemList) {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = adapter
+        }
+
+        binding.vSearchEditText.textChanges()
+            .debounce(INPUT_PROCESSING_INTERVAL, TimeUnit.MILLISECONDS)
+            .subscribe({ viewModel.search(it) }, {
+                Timber.e(it,"Ошибка считывания")
+            }).apply { disposablies.add(this) }
+
         viewModel.searchLiveData.observe(viewLifecycleOwner) { result ->
-            view.vLoading.hide()
+            binding.vLoading.hide()
             when (result) {
                 is ResultRequest.Success -> {
                     adapter?.submitList(result.data)
@@ -49,10 +45,9 @@ class SearchFragment : Fragment() {
                 is ResultRequest.Error -> {
                     Timber.e(result.exception)
                 }
-                ResultRequest.Loading -> view.vLoading.show()
+                ResultRequest.Loading -> binding.vLoading.show()
             }
         }
-        return view
     }
 
     override fun onDestroy() {

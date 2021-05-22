@@ -3,13 +3,13 @@ package ru.bedsus.spotifyapp.view
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.spotify.sdk.android.authentication.AuthenticationClient
-import com.spotify.sdk.android.authentication.AuthenticationRequest
-import com.spotify.sdk.android.authentication.AuthenticationResponse
-import kotlinx.android.synthetic.main.activity_main.*
+import com.spotify.sdk.android.auth.AuthorizationClient
+import com.spotify.sdk.android.auth.AuthorizationRequest
+import com.spotify.sdk.android.auth.AuthorizationResponse
 import org.koin.android.ext.android.inject
 import ru.bedsus.core.token.TokenManager
 import ru.bedsus.spotifyapp.R
+import ru.bedsus.spotifyapp.databinding.ActivityMainBinding
 import ru.bedsus.spotifyapp.modules.search.view.SearchFragment
 import timber.log.Timber
 
@@ -17,40 +17,43 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private val tokenManager: TokenManager by inject()
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         if (tokenManager.isToken().not()) {
             authorization()
         }
     }
 
     private fun authorization() {
-        vLoading.show()
-        val builder = AuthenticationRequest.Builder(
-                CLIENT_ID, AuthenticationResponse.Type.TOKEN, REDIRECT_URI
+        binding.vLoading.show()
+        val builder = AuthorizationRequest.Builder(
+                CLIENT_ID, AuthorizationResponse.Type.TOKEN, REDIRECT_URI
         )
         val request = builder.build()
-        AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request)
+        AuthorizationClient.openLoginActivity(this, REQUEST_CODE, request)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
         super.onActivityResult(requestCode, resultCode, intent)
         if (requestCode == REQUEST_CODE) {
-            val response = AuthenticationClient.getResponse(resultCode, intent)
+            val response = AuthorizationClient.getResponse(resultCode, intent)
             Timber.d(response.code)
             when (response.type) {
-                AuthenticationResponse.Type.TOKEN -> {
+                AuthorizationResponse.Type.TOKEN -> {
                     saveToken(response)
                     openSearch()
                 }
-                AuthenticationResponse.Type.ERROR -> {
+                AuthorizationResponse.Type.ERROR -> {
                     Timber.d(response.error)
                 }
                 else -> {
                     Timber.d(response.error)
                 }
             }
-            vLoading.hide()
+            binding.vLoading.hide()
         }
     }
 
@@ -60,7 +63,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 .commit()
     }
 
-    private fun saveToken(response: AuthenticationResponse) {
+    private fun saveToken(response: AuthorizationResponse) {
         tokenManager.setTokens(response.accessToken)
         Timber.d(response.accessToken)
     }

@@ -5,10 +5,11 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.playlist_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.bedsus.core.repository.ResultRequest
+import ru.bedsus.core.viewbinding.viewBinding
 import ru.bedsus.spotifyapp.R
+import ru.bedsus.spotifyapp.databinding.PlaylistFragmentBinding
 import ru.bedsus.spotifyapp.modules.playlist.models.PlaylistItem
 import ru.bedsus.spotifyapp.modules.playlist.vm.PlaylistViewModel
 import timber.log.Timber
@@ -18,12 +19,17 @@ class PlaylistFragment : Fragment(R.layout.playlist_fragment) {
     private val viewModel by viewModel<PlaylistViewModel>()
     private var adapter: PlaylistAdapter? = null
 
+    private val binding by viewBinding(PlaylistFragmentBinding::bind)
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        vPlaylistRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        adapter = PlaylistAdapter()
-        val itemDecoration = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
-        vPlaylistRecyclerView.addItemDecoration(itemDecoration)
-        vPlaylistRecyclerView.adapter = adapter
+        with(binding.vPlaylistRecyclerView) {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = PlaylistAdapter()
+            addItemDecoration(
+                DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
+            )
+            adapter = adapter
+        }
         viewModel.playlistLiveData.observe(viewLifecycleOwner) {
             handleRequest(it)
         }
@@ -47,10 +53,10 @@ class PlaylistFragment : Fragment(R.layout.playlist_fragment) {
     }
 
     private fun showLoading() {
-        vLoading.show()
+        binding.vLoading.show()
     }
 
     private fun hideLoading() {
-        vLoading.hide()
+        binding.vLoading.hide()
     }
 }

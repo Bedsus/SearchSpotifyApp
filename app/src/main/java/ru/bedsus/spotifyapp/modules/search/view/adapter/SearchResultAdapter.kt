@@ -8,28 +8,30 @@ import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.album_list_item.view.*
-import kotlinx.android.synthetic.main.artist_list_item.view.*
-import kotlinx.android.synthetic.main.track_list_item.view.*
-import ru.bedsus.spotifyapp.R
+import ru.bedsus.spotifyapp.databinding.AlbumListItemBinding
+import ru.bedsus.spotifyapp.databinding.ArtistListItemBinding
+import ru.bedsus.spotifyapp.databinding.TrackListItemBinding
 import ru.bedsus.spotifyapp.modules.search.models.SearchType
 import ru.bedsus.spotifyapp.modules.search.models.SearchItem
 
 class SearchResultAdapter : ListAdapter<SearchItem, SearchResultAdapter.ViewHolder>(SearchItemDiffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
         return when (SearchType.values()[viewType]) {
-            SearchType.ALBUM -> AlbumViewHolder(getLayoutItems(R.layout.album_list_item, parent))
-            SearchType.ARTIST -> ArtistViewHolder(getLayoutItems(R.layout.artist_list_item, parent))
-            SearchType.TRACK -> TrackViewHolder(getLayoutItems(R.layout.track_list_item, parent))
+            SearchType.ALBUM -> AlbumViewHolder(
+                AlbumListItemBinding.inflate(layoutInflater, parent, false)
+            )
+            SearchType.ARTIST -> ArtistViewHolder(
+                ArtistListItemBinding.inflate(layoutInflater, parent, false)
+            )
+            SearchType.TRACK -> TrackViewHolder(
+                TrackListItemBinding.inflate(layoutInflater, parent, false)
+            )
         }
     }
 
     override fun getItemViewType(position: Int) = getItem(position).type.ordinal
-
-    private fun getLayoutItems(layoutId: Int, parent: ViewGroup): View {
-        return LayoutInflater.from(parent.context).inflate(layoutId, parent, false)
-    }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
@@ -49,30 +51,36 @@ class SearchResultAdapter : ListAdapter<SearchItem, SearchResultAdapter.ViewHold
         abstract val imageView: ImageView?
     }
 
-    class AlbumViewHolder(itemView: View): ViewHolder(itemView) {
+    class AlbumViewHolder(
+       private val viewBinding: AlbumListItemBinding
+    ): ViewHolder(viewBinding.root) {
         override val firstText: TextView
-            get() = itemView.vAlbumName
+            get() = viewBinding.vAlbumName
         override val secondText: TextView
-            get() = itemView.vArtistNameByAlbum
+            get() = viewBinding.vArtistNameByAlbum
         override val imageView: ImageView
-            get() = itemView.vAlbumImage
+            get() = viewBinding.vAlbumImage
 
     }
 
-    class ArtistViewHolder(itemView: View): ViewHolder(itemView) {
+    class ArtistViewHolder(
+        private val viewBinding: ArtistListItemBinding
+    ): ViewHolder(viewBinding.root) {
         override val firstText: TextView
-            get() = itemView.vArtistName
+            get() = viewBinding.vArtistName
         override val secondText: TextView? = null
         override val imageView: ImageView
-            get() = itemView.vArtistImage
+            get() = viewBinding.vArtistImage
     }
 
-    class TrackViewHolder(itemView: View): ViewHolder(itemView) {
+    class TrackViewHolder(
+       private val viewBinding: TrackListItemBinding
+    ): ViewHolder(viewBinding.root) {
         override val firstText: TextView
-            get() = itemView.vTrackName
+            get() = viewBinding.vTrackName
         override val secondText: TextView
-            get() = itemView.vArtistNameByTrack
+            get() = viewBinding.vArtistNameByTrack
         override val imageView: ImageView
-            get() = itemView.vTrackImage
+            get() = viewBinding.vTrackImage
     }
 }
