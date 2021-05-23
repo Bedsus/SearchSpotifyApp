@@ -22,7 +22,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        if (tokenManager.isToken().not()) {
+        if (tokenManager.isToken()) {
+            openSearch()
+        } else {
             authorization()
         }
     }
@@ -40,7 +42,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         super.onActivityResult(requestCode, resultCode, intent)
         if (requestCode == REQUEST_CODE) {
             val response = AuthorizationClient.getResponse(resultCode, intent)
-            Timber.d(response.code)
             when (response.type) {
                 AuthorizationResponse.Type.TOKEN -> {
                     saveToken(response)
@@ -73,5 +74,4 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         const val REDIRECT_URI = "bedsus://spotifyapp"
         const val CLIENT_ID = "ae73e5bd5b6b4f04bbda7f9afaba4080"
     }
-
 }

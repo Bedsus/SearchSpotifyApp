@@ -11,10 +11,10 @@ import com.squareup.picasso.Picasso
 import ru.bedsus.spotifyapp.databinding.AlbumListItemBinding
 import ru.bedsus.spotifyapp.databinding.ArtistListItemBinding
 import ru.bedsus.spotifyapp.databinding.TrackListItemBinding
-import ru.bedsus.spotifyapp.modules.search.models.SearchType
-import ru.bedsus.spotifyapp.modules.search.models.SearchItem
+import ru.bedsus.spotifyapp.data.search.models.SearchType
+import ru.bedsus.spotifyapp.data.search.models.ListItem
 
-class SearchResultAdapter : ListAdapter<SearchItem, SearchResultAdapter.ViewHolder>(SearchItemDiffUtil) {
+class SearchResultAdapter : ListAdapter<ListItem, SearchResultAdapter.ViewHolder>(SearchItemDiffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)

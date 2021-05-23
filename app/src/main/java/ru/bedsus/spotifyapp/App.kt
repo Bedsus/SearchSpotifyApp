@@ -5,6 +5,8 @@ import org.koin.android.BuildConfig
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import ru.bedsus.core.di.coreModule
+import ru.bedsus.spotifyapp.di.appModule
+import ru.bedsus.spotifyapp.modules.followed.di.followedModule
 import ru.bedsus.spotifyapp.modules.playlist.di.playlistModule
 import ru.bedsus.spotifyapp.modules.search.di.searchModule
 import timber.log.Timber
@@ -17,7 +19,11 @@ class App : Application() {
         startKoin {
             androidContext(this@App)
             modules(
-                coreModule, playlistModule, searchModule
+                appModule,
+                coreModule,
+                playlistModule,
+                searchModule,
+                followedModule
             )
         }
         if (BuildConfig.DEBUG) {

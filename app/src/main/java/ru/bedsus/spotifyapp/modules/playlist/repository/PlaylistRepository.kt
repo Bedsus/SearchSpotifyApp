@@ -1,7 +1,7 @@
 package ru.bedsus.spotifyapp.modules.playlist.repository
 
 import ru.bedsus.core.repository.ResultRequest
-import ru.bedsus.spotifyapp.modules.playlist.models.PlaylistItem
+import ru.bedsus.spotifyapp.data.playlist.models.PlaylistItem
 
 interface PlaylistRepository {
 

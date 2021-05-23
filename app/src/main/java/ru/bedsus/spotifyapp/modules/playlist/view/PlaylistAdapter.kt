@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import ru.bedsus.spotifyapp.databinding.PlaylistItemBinding
-import ru.bedsus.spotifyapp.modules.playlist.models.PlaylistItem
+import ru.bedsus.spotifyapp.data.playlist.models.PlaylistItem
 
 class PlaylistAdapter : ListAdapter<PlaylistItem, PlaylistAdapter.ViewHolder>(PlaylistDiffUtils) {
 

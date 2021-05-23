@@ -1,12 +1,12 @@
 package ru.bedsus.spotifyapp.modules.search.repository
 
 import ru.bedsus.core.repository.ResultRequest
-import ru.bedsus.spotifyapp.modules.search.endpoints.SearchApiService
-import ru.bedsus.spotifyapp.modules.search.mappers.SearchResultApiToSearchResultMapper
-import ru.bedsus.spotifyapp.modules.search.models.SearchResult
+import ru.bedsus.spotifyapp.api.SpotifyApiService
+import ru.bedsus.spotifyapp.data.search.mappers.SearchResultApiToSearchResultMapper
+import ru.bedsus.spotifyapp.data.search.models.SearchResult
 
 class SearchRepositoryImpl(
-    private val service: SearchApiService
+    private val service: SpotifyApiService
 ) : SearchRepository {
 
     override suspend fun search(

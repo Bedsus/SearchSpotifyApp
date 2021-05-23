@@ -9,13 +9,14 @@ import io.reactivex.disposables.CompositeDisposable
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.bedsus.core.repository.ResultRequest
 import ru.bedsus.core.viewbinding.viewBinding
+import ru.bedsus.spotifyapp.R
 import ru.bedsus.spotifyapp.databinding.SearchFragmentBinding
 import ru.bedsus.spotifyapp.modules.search.view.adapter.SearchResultAdapter
 import ru.bedsus.spotifyapp.modules.search.vm.SearchViewModel
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
-class SearchFragment : Fragment() {
+class SearchFragment : Fragment(R.layout.search_fragment) {
 
     private var disposablies = CompositeDisposable()
     private val viewModel: SearchViewModel by viewModel()

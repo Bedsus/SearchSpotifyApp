@@ -1,7 +1,7 @@
 package ru.bedsus.spotifyapp.modules.playlist.view
 
 import androidx.recyclerview.widget.DiffUtil
-import ru.bedsus.spotifyapp.modules.playlist.models.PlaylistItem
+import ru.bedsus.spotifyapp.data.playlist.models.PlaylistItem
 
 object PlaylistDiffUtils : DiffUtil.ItemCallback<PlaylistItem>() {
     override fun areItemsTheSame(oldItem: PlaylistItem, newItem: PlaylistItem): Boolean {

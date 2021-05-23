@@ -1,8 +1,7 @@
 package ru.bedsus.spotifyapp.modules.search.repository
 
 import ru.bedsus.core.repository.ResultRequest
-import ru.bedsus.spotifyapp.modules.search.models.SearchResult
-import ru.bedsus.spotifyapp.modules.search.models.SearchType
+import ru.bedsus.spotifyapp.data.search.models.SearchResult
 
 interface SearchRepository {
 

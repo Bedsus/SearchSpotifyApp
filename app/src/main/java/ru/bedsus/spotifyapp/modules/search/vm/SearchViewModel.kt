@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.bedsus.core.repository.ResultRequest
-import ru.bedsus.spotifyapp.modules.search.models.SearchItem
-import ru.bedsus.spotifyapp.modules.search.models.SearchType
+import ru.bedsus.spotifyapp.data.search.models.ListItem
+import ru.bedsus.spotifyapp.data.search.models.SearchType
 import ru.bedsus.spotifyapp.modules.search.repository.SearchRepository
 import ru.bedsus.spotifyapp.modules.search.user_case.SearchUserCases
 
@@ -20,9 +20,9 @@ class SearchViewModel(
     val genre = MutableLiveData<String>(null)
     val type = MutableLiveData<Set<SearchType>>(setOf())
 
-    val searchLiveData: LiveData<ResultRequest<List<SearchItem>>>
+    val searchLiveData: LiveData<ResultRequest<List<ListItem>>>
         get() = _searchLiveData
-    private val _searchLiveData = MutableLiveData<ResultRequest<List<SearchItem>>>()
+    private val _searchLiveData = MutableLiveData<ResultRequest<List<ListItem>>>()
 
     fun search(query: CharSequence) {
         if (query.isEmpty()) {

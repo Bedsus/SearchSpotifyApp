@@ -10,7 +10,7 @@ import ru.bedsus.core.repository.ResultRequest
 import ru.bedsus.core.viewbinding.viewBinding
 import ru.bedsus.spotifyapp.R
 import ru.bedsus.spotifyapp.databinding.PlaylistFragmentBinding
-import ru.bedsus.spotifyapp.modules.playlist.models.PlaylistItem
+import ru.bedsus.spotifyapp.data.playlist.models.PlaylistItem
 import ru.bedsus.spotifyapp.modules.playlist.vm.PlaylistViewModel
 import timber.log.Timber
 

@@ -1,11 +1,11 @@
 package ru.bedsus.spotifyapp.modules.search.user_case
 
 import ru.bedsus.core.repository.listMap
-import ru.bedsus.spotifyapp.modules.search.mappers.AlbumToSearchItemMapper
-import ru.bedsus.spotifyapp.modules.search.mappers.ArtistToSearchItemMapper
-import ru.bedsus.spotifyapp.modules.search.mappers.TrackToSearchItemMapper
-import ru.bedsus.spotifyapp.modules.search.models.SearchItem
-import ru.bedsus.spotifyapp.modules.search.models.SearchResult
+import ru.bedsus.spotifyapp.data.album.mapper.AlbumToListItemMapper
+import ru.bedsus.spotifyapp.data.artist.mapper.ArtistToListItemMapper
+import ru.bedsus.spotifyapp.data.track.mapper.TrackToListItemMapper
+import ru.bedsus.spotifyapp.data.search.models.ListItem
+import ru.bedsus.spotifyapp.data.search.models.SearchResult
 
 object SearchUserCases {
 
@@ -27,11 +27,11 @@ object SearchUserCases {
         return resultQuery
     }
 
-    fun createSearchItemList(result: SearchResult): List<SearchItem> {
-        val searchItems = mutableListOf<SearchItem>()
-        searchItems.addAll(ArtistToSearchItemMapper.listMap(result.artists))
-        searchItems.addAll(TrackToSearchItemMapper.listMap(result.tracks))
-        searchItems.addAll(AlbumToSearchItemMapper.listMap(result.albums))
+    fun createSearchItemList(result: SearchResult): List<ListItem> {
+        val searchItems = mutableListOf<ListItem>()
+        searchItems.addAll(ArtistToListItemMapper.listMap(result.artists))
+        searchItems.addAll(TrackToListItemMapper.listMap(result.tracks))
+        searchItems.addAll(AlbumToListItemMapper.listMap(result.albums))
         return searchItems
     }
 }
